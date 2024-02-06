@@ -1,13 +1,13 @@
-package com.example.kafkaconversationproducer;
+package com.example.kafkaconversationsystemtwo;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KafkaConversationProducerApplication {
+public class KafkaConversationSystemTwoApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(KafkaConversationProducerApplication.class, args);
+		SpringApplication.run(KafkaConversationSystemTwoApplication.class, args);
 	}
 
 }
