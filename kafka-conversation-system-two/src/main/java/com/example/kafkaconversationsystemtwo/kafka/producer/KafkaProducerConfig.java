@@ -1,5 +1,6 @@
 package com.example.kafkaconversationsystemtwo.kafka.producer;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.context.annotation.Bean;
@@ -14,18 +15,18 @@ import java.util.Map;
 @Configuration
 public class KafkaProducerConfig {
 
-    // TODO send object message instead of string message
     @Bean
-    public ProducerFactory<String, String> producerFactory(){
+    public ProducerFactory<String, TransformedString> producerFactory(){
         Map<String, Object> configProps = new HashMap<>();
         configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        configProps.put(ConsumerConfig.GROUP_ID_CONFIG, "conversation");
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+        configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, TransformedStringSerializer.class);
         return new DefaultKafkaProducerFactory<>(configProps);
     }
 
     @Bean
-    public KafkaTemplate<String, String> kafkaTemplate(){
+    public KafkaTemplate<String, TransformedString> kafkaTemplate(){
         return new KafkaTemplate<>(producerFactory());
     }
 }

@@ -2,6 +2,7 @@ package com.example.kafkaconversationsystemtwo.kafka.consumer;
 
 import com.example.kafkaconversationsystemtwo.SystemTwoTag;
 import com.example.kafkaconversationsystemtwo.kafka.producer.MessageProducer;
+import com.example.kafkaconversationsystemtwo.kafka.producer.TransformedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
@@ -20,9 +21,8 @@ public class MessageConsumer {
         logger.info(SystemTwoTag.SYSTEM_TAG + "Received message: " + message);
         logger.info(SystemTwoTag.SYSTEM_TAG + "Transforming message ...");
 
-        String transformedMessage = message + "TRANSFORMED BY system-two";
+        TransformedString transformedMessage = new TransformedString(message);
 
         messageProducer.sendMessage("for-two-to-publish-on", transformedMessage);
-        logger.info(SystemTwoTag.SYSTEM_TAG + "Message sent: " + transformedMessage);
     }
 }
